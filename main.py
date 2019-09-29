@@ -9,7 +9,7 @@ pygame.joystick.init()
 
 while True:
     pygame.event.get()
-    joystick_count = pygame.joystick.get_count()
+    joystickCount = pygame.joystick.get_count()
 
     joystick = pygame.joystick.Joystick(0)
     joystick.init()
@@ -17,16 +17,16 @@ while True:
 
     axes = joystick.get_numaxes()
     for index in range(axes):
-        axis_status = joystick.get_axis(index)
-        if abs(axis[index] - axis_status) > 0.2:
-            axis[index] = axis_status
+        axisStatus = joystick.get_axis(index)
+        if abs(axis[index] - axisStatus) > 0.2:
+            axis[index] = axisStatus
             print("Axis {} value: {:>6.3f}".format(index, axis[index]))
 
     buttons = joystick.get_numbuttons()
     for index in range(buttons):
-        button_status = joystick.get_button(index)
-        if button[index] is not button_status:
-            button[index] = button_status
+        buttonStatus = joystick.get_button(index)
+        if button[index] is not buttonStatus:
+            button[index] = buttonStatus
             print("Button {:>2} value: {}".format(index, button[index]))
 
     #hats = joystick.get_numhats()
