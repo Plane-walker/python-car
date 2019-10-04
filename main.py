@@ -1,5 +1,5 @@
 import pygame
-from servo.servo import paw_close
+from servo.servo import paw_close, paw_open
 
 button = [0] * 14
 hatX = 0
@@ -39,5 +39,8 @@ while True:
                 hatY = hatYStatus
                 print("Hat {} value: ({}, {})".format(index, hatX, hatY))
 
-    if button[3] == 1:
+    if button[2] == 1:
         paw_close()
+
+    if button[0] == 1:
+        paw_open()
