@@ -15,3 +15,10 @@ def init_servo_angle():
     for index in range(len(servoInitAngle)):
         set_servo_angle(index, servoInitAngle[index])
         time.sleep(1)
+
+def paw_close():
+    if servoNowAngle[0] < 2500:
+        servoNowAngle[0] += 5
+    else:
+        servoNowAngle[0] = 2500
+    set_servo_angle(0, servoNowAngle[0])

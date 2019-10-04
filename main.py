@@ -1,7 +1,9 @@
 import pygame
+from .servo import paw_close
 
 button = [0] * 14
-hat = [0, 0]
+hatX = 0
+hatY = 0
 axis = [0] * 6
 
 pygame.init()
@@ -29,7 +31,13 @@ while True:
             button[index] = buttonStatus
             print("Button {:>2} value: {}".format(index, button[index]))
 
-    #hats = joystick.get_numhats()
-    #for index in range(hats):
-            #hat = joystick.get_hat(index)
-            #print("Hat {} value: {}".format(i, str(hat)))
+    hats = joystick.get_numhats()
+    for index in range(hats):
+            hatXStatus, hatYStatus = joystick.get_hat(index)
+            if hatX is not hatXStatus or hatY is not hatYStatus:
+                hatX = hatXStatus
+                hatY = hatYStatus
+                print("Hat {} value: {}".format(index, str(hatX, hatY)))
+
+    if button[3] == 1:
+        paw_close()
