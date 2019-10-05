@@ -7,6 +7,7 @@ pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
 servoInitAngle = [99, 99, 117, 144, 180]
 servoNowAngle = servoInitAngle[:]
+normalAngle = [123.1, 65.1, 29.6]
 axisY = 10.0
 axisZ = 12.0
 carHeight = 16.06
@@ -42,16 +43,19 @@ def cosine_law(side_a, side_b, side_c):
 
 def arm_move():
     sub_line = pow(axisY * axisY + (carHeight - axisZ - pawHeight) * (carHeight - axisZ - pawHeight), 0.5)
-    servoNowAngle[2] = cosine_law(sub_line, foreArm, upperArm)
+    servoNowAngle[3] += normalAngle[1] - cosine_law(sub_line, foreArm, upperArm)
     if carHeight - axisZ - pawHeight < 0:
-        servoNowAngle[4] = 180 - (cosine_law(foreArm, sub_line, upperArm) + cosine_law(abs(carHeight - axisZ - pawHeight), axisY, sub_line))
-        servoNowAngle[3] = cosine_law(upperArm, sub_line, foreArm) + cosine_law(axisY, abs(carHeight - axisZ - pawHeight), sub_line)
+        servoNowAngle[4] +=normalAngle[2] + 180 - (cosine_law(foreArm, sub_line, upperArm) + cosine_law(abs(carHeight - axisZ - pawHeight), axisY, sub_line))
+        servoNowAngle[2] += cosine_law(upperArm, sub_line, foreArm) + cosine_law(axisY, abs(carHeight - axisZ - pawHeight), sub_line) - normalAngle[0]
     else:
-        servoNowAngle[4] = 270 - (cosine_law(foreArm, sub_line, upperArm) + cosine_law(axisY, abs(carHeight - axisZ - pawHeight), sub_line))
-        servoNowAngle[3] = cosine_law(upperArm, sub_line, foreArm) + cosine_law(abs(carHeight - axisZ - pawHeight), axisY, sub_line) + 90
-    set_servo_angle(2, servoInitAngle[2])
-    set_servo_angle(3, servoInitAngle[3])
-    set_servo_angle(4, servoInitAngle[4])
+        servoNowAngle[4] +=normalAngle[2] + 270 - (cosine_law(foreArm, sub_line, upperArm) + cosine_law(axisY, abs(carHeight - axisZ - pawHeight), sub_line))
+        servoNowAngle[2] += cosine_law(upperArm, sub_line, foreArm) + cosine_law(abs(carHeight - axisZ - pawHeight), axisY, sub_line) + 90 - normalAngle[0]
+    for index in [2, 3, 4]:
+        if servoNowAngle[index] > 180:
+            servoNowAngle[index] = 180
+        elif servoNowAngle[index] < 0:
+            servoNowAngle[index] = 0
+        set_servo_angle(index, servoNowAngle[index])
 
 def arm_up():
     global axisZ
