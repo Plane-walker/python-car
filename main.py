@@ -1,5 +1,5 @@
 import pygame
-from servo.servo import paw_close, paw_open
+from servo.servo import paw_close, paw_open, init_servo_angle, arm_ahead, arm_back, arm_up, arm_down
 
 button = [0] * 14
 hatX = 0
@@ -8,6 +8,7 @@ axis = [0] * 6
 
 pygame.init()
 pygame.joystick.init()
+init_servo_angle()
 
 while True:
     pygame.event.get()
@@ -22,14 +23,14 @@ while True:
         axisStatus = joystick.get_axis(index)
         if abs(axis[index] - axisStatus) > 0.2:
             axis[index] = axisStatus
-            print("Axis {} value: {:>6.3f}".format(index, axis[index]))
+            #print("Axis {} value: {:>6.3f}".format(index, axis[index]))
 
     buttons = joystick.get_numbuttons()
     for index in range(buttons):
         buttonStatus = joystick.get_button(index)
         if button[index] is not buttonStatus:
             button[index] = buttonStatus
-            print("Button {:>2} value: {}".format(index, button[index]))
+            #print("Button {:>2} value: {}".format(index, button[index]))
 
     hats = joystick.get_numhats()
     for index in range(hats):
@@ -37,10 +38,22 @@ while True:
             if hatX is not hatXStatus or hatY is not hatYStatus:
                 hatX = hatXStatus
                 hatY = hatYStatus
-                print("Hat {} value: ({}, {})".format(index, hatX, hatY))
+                #print("Hat {} value: ({}, {})".format(index, hatX, hatY))
 
     if button[2] == 1:
         paw_close()
 
-    if button[0] == 1:
+    if button[1] == 1:
         paw_open()
+
+    if button[5] == 1:
+        arm_up()
+
+    if button[4] == 1:
+        arm_down()
+
+    if button[7] == 1:
+        arm_ahead()
+
+    if button[6] == 1:
+        arm_back()
