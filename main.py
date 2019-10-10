@@ -1,5 +1,5 @@
 import pygame
-from servo.servo import paw_close, paw_open, init_servo_angle, arm_ahead, arm_back, arm_up, arm_down
+from servo.servo import servo_increase, servo_decrease, init_servo_angle, arm_ahead, arm_back, arm_up, arm_down
 
 button = [0] * 14
 hatX = 0
@@ -41,10 +41,10 @@ while True:
                 #print("Hat {} value: ({}, {})".format(index, hatX, hatY))
 
     if button[2] == 1:
-        paw_close()
+        servo_decrease(0)
 
-    if button[1] == 1:
-        paw_open()
+    if button[0] == 1:
+        servo_increase(0)
 
     if button[5] == 1:
         arm_up()

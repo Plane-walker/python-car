@@ -46,46 +46,21 @@ def init_servo_angle():
         set_servo_angle(index, servoNowAngle[index])
         time.sleep(1)
 
-def paw_close():
-    if servoNowAngle[0] < 180:
-        servoNowAngle[0] += 3
+def servo_increase(index):
+    if servoNowAngle[index] < 180:
+        servoNowAngle[index] += 3
     else:
-        servoNowAngle[0] = 180
-    set_servo_angle(0, servoNowAngle[0])
+        servoNowAngle[index] = 180
+    set_servo_angle(index, servoNowAngle[index])
 
-def paw_open():
-    if servoNowAngle[0] > 0:
-        servoNowAngle[0] -= 3
+def servo_decrease(index):
+    if servoNowAngle[index] > 0:
+        servoNowAngle[index] -= 3
     else:
-        servoNowAngle[0] = 0
-    set_servo_angle(0, servoNowAngle[0])
-
-def paw_up():
-    if servoNowAngle[1] < 180:
-        servoNowAngle[1] += 3
-    else:
-        servoNowAngle[1] = 180
-    set_servo_angle(1, servoNowAngle[1])
-
-def paw_down():
-    if servoNowAngle[1] > 0:
-        servoNowAngle[1] -= 3
-    else:
-        servoNowAngle[1] = 0
-    set_servo_angle(1, servoNowAngle[1])
-
-# def cosine_law(side_a, side_b, side_c):
-#     return math.acos((side_c * side_c + side_b * side_b - side_a * side_a) / 2 / side_c / side_b) * 180 / 3.14159
+        servoNowAngle[index] = 0
+    set_servo_angle(index, servoNowAngle[index])
 
 def arm_move():
-    # sub_line = pow(axisY * axisY + (carHeight - axisZ - pawHeight) * (carHeight - axisZ - pawHeight), 0.5)
-    # servoNowAngle[3] += normalAngle[1] - cosine_law(sub_line, foreArm, upperArm)
-    # if carHeight - axisZ - pawHeight < 0:
-    #     servoNowAngle[4] +=normalAngle[2] + 180 - (cosine_law(foreArm, sub_line, upperArm) + cosine_law(abs(carHeight - axisZ - pawHeight), axisY, sub_line))
-    #     servoNowAngle[2] += cosine_law(upperArm, sub_line, foreArm) + cosine_law(axisY, abs(carHeight - axisZ - pawHeight), sub_line) - normalAngle[0]
-    # else:
-    #     servoNowAngle[4] +=normalAngle[2] + 270 - (cosine_law(foreArm, sub_line, upperArm) + cosine_law(axisY, abs(carHeight - axisZ - pawHeight), sub_line))
-    #     servoNowAngle[2] += cosine_law(upperArm, sub_line, foreArm) + cosine_law(abs(carHeight - axisZ - pawHeight), axisY, sub_line) + 90 - normalAngle[0]
     inter_x, inter_y = circle_intersection(0, 0, upperArm, axisX, axisY, foreArm)
     if inter_x == 0 and inter_y == 0:
         return -1
@@ -123,7 +98,7 @@ def arm_ahead():
     axisX += 1
     status = arm_move()
     if status == -1:
-        axisX += 1
+        axisX -= 1
         return "CAN'T REACH"
     return "OK"
 
