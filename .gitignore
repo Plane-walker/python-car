@@ -1,3 +1,5 @@
 /venv/
 /.idea/
 /servo/__pycache__/
+/camera/__pycache__/
+/camera/*.xml
