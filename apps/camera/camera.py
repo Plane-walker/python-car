@@ -1,9 +1,9 @@
 import cv2 as cv
 
-cap = cv.VideoCapture(0)
+capture = cv.VideoCapture(0)
 face_xml = cv.CascadeClassifier("haarcascade_frontalface_alt.xml")
-while cap.isOpened():
-    f, img = cap.read()
+while capture.isOpened():
+    f, img = capture.read()
     gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
     face = face_xml.detectMultiScale(gray,1.3,10)
 
@@ -13,4 +13,4 @@ while cap.isOpened():
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
-cap.release()
+capture.release()

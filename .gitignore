@@ -1,5 +1,7 @@
 /venv/
 /.idea/
-/servo/__pycache__/
-/camera/__pycache__/
-/camera/*.xml
+/apps/__pycache__/
+/apps/controlers/__pycache__/
+/apps/servo/__pycache__/
+/apps/camera/__pycache__/
+/apps/camera/*.xml
