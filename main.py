@@ -1,5 +1,4 @@
 import pygame
-import time
 import threading
 from apps.servo.servo import init_servo_angle
 from apps.controlers.joystick import joystick_control

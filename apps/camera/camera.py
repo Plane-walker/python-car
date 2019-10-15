@@ -1,19 +1,20 @@
-import cv2 as cv
+import cv2
 import os
 
 def video_stream():
-    capture = cv.VideoCapture(0)
+    capture = cv2.VideoCapture(0)
     dir_name, file_name = os.path.split(os.path.abspath(__file__))
-    face_xml = cv.CascadeClassifier(os.path.join(dir_name, "haarcascade_frontalface_alt.xml"))
+    face_xml = cv2.CascadeClassifier(os.path.join(dir_name, "haarcascade_frontalface_alt.xml"))
     while capture.isOpened():
         f, img = capture.read()
-        gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
-        face = face_xml.detectMultiScale(gray,1.3,10)
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        face = face_xml.detectMultiScale(gray, 1.1, 5)
 
         for (x,y,w,h) in face:
-            cv.rectangle(img, (x ,y),(x + w, y + h), (255, 0, 0), 2)
-        cv.imshow("1", img)
-        if cv.waitKey(1) & 0xFF == ord('q'):
+            cv2.rectangle(img, (x ,y),(x + w, y + h), (255, 0, 0), 2)
+        cv2.imshow("viewer", img)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
             break
 
     capture.release()
