@@ -11,7 +11,7 @@ def joystick_control():
 
     joystick = pygame.joystick.Joystick(0)
     joystick.init()
-    # name = joystick.get_name()
+    name = joystick.get_name()
 
     axes = joystick.get_numaxes()
     for index in range(axes):
