@@ -1,1 +1,1 @@
-__all__ = ['joystick']
+__all__ = ['joystick', 'keyboard']
