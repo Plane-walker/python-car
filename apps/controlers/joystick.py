@@ -38,10 +38,10 @@ def joystick_control():
 
 # paw function
     if button[2] == 1:
-        servo_decrease(0)
+        servo_increase(0)
 
     if button[0] == 1:
-        servo_increase(0)
+        servo_decrease(0)
 
 # arm function
     if button[5] == 1:

@@ -5,9 +5,9 @@ import os
 
 def video_stream():
     camera = PiCamera()
-    camera.resolution = (640, 480)
-    camera.framerate = 32
-    rawCapture = PiRGBArray(camera, size=(640, 480))
+    camera.resolution = (320, 240)
+    camera.framerate = 60
+    rawCapture = PiRGBArray(camera, size=(320, 240))
     # capture = cv2.VideoCapture(0)
     dir_name, file_name = os.path.split(os.path.abspath(__file__))
     face_xml = cv2.CascadeClassifier(os.path.join(dir_name, "haarcascade_frontalface_alt.xml"))
@@ -20,7 +20,7 @@ def video_stream():
         face = face_xml.detectMultiScale(gray, 1.1, 5)
 
         for (x,y,w,h) in face:
-            cv2.rectangle(img, (x * 4 ,y * 4),(x * 4 + w * 4, y * 4 + h * 4), (255, 0, 0), 2)
+            cv2.rectangle(img, (x * 2 ,y * 2),(x * 2 + w * 2, y * 2 + h * 2), (255, 0, 0), 2)
         cv2.imshow("viewer", img)
         rawCapture.truncate(0)
         if cv2.waitKey(1) & 0xFF == ord('q'):

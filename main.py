@@ -2,6 +2,7 @@ import pygame
 import threading
 from apps.servo.servo import init_servo_angle
 from apps.controlers.joystick import joystick_control
+from apps.controlers.keyboard import keyboard_control
 from apps.camera.camera import video_stream
 
 pygame.init()
@@ -12,7 +13,7 @@ video_thread.setDaemon(True)
 video_thread.start()
 
 while True:
-    while pygame.joystick.get_count() > 0:
+    if pygame.joystick.get_count() > 0:
         joystick_control()
-    #while
-
+    else:
+        keyboard_control()
