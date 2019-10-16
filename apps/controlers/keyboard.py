@@ -22,3 +22,5 @@ def keyboard_control():
 
     if key_list[pygame.K_RIGHT]:
         arm_back()
+    pygame.event.pump()
+    pygame.time.delay(10)

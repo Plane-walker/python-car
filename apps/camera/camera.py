@@ -15,8 +15,7 @@ def video_stream():
     #     f, img = capture.read()
     for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
         img = frame.array
-        img = cv2.resize(img, (160, 120))
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(cv2.resize(img, (160, 120)), cv2.COLOR_BGR2GRAY)
         face = face_xml.detectMultiScale(gray, 1.1, 5)
 
         for (x,y,w,h) in face:
