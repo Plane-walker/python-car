@@ -11,7 +11,7 @@ def joystick_control():
 
     joystick = pygame.joystick.Joystick(0)
     joystick.init()
-    name = joystick.get_name()
+    joystick.get_name()
 
     axes = joystick.get_numaxes()
     for index in range(axes):
@@ -41,6 +41,12 @@ def joystick_control():
         servo_increase(0)
 
     if button[0] == 1:
+        servo_decrease(0)
+
+    if button[3] == 1:
+        servo_increase(0)
+
+    if button[1] == 1:
         servo_decrease(0)
 
 # arm function
