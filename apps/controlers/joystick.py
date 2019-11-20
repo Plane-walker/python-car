@@ -6,6 +6,7 @@ hatX = 0
 hatY = 0
 axis = [0] * 6
 
+
 def joystick_control():
     pygame.event.get()
 
