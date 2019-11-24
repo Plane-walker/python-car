@@ -1,72 +1,49 @@
 import RPi.GPIO as GPIO
-GPIO.setmode(GIPO.BOARD)
+from apps.config.config import Config
+GPIO.setmode(GPIO.BOARD)
 
 
 def init_motor():
-    # left_ahead
-    GPIO.setup(11, GPIO.OUT)
-    GPIO.setup(12, GPIO.OUT)
-    # right_ahead
-    GPIO.setup(13, GPIO.OUT)
-    GPIO.setup(15, GPIO.OUT)
-    # left_back
-    GPIO.setup(16, GPIO.OUT)
-    GPIO.setup(18, GPIO.OUT)
-    # right_back
-    GPIO.setup(22, GPIO.OUT)
-    GPIO.setup(7, GPIO.OUT)
+    for index in Config.motor_pin:
+        GPIO.setup(Config.motor_pin[index][0], GPIO.OUT)
+        GPIO.setup(Config.motor_pin[index][1], GPIO.OUT)
 
 
 def go_ahead():
-    GPIO.OUT(11, 1)
-    GPIO.OUT(12, 0)
-    GPIO.OUT(13, 1)
-    GPIO.OUT(15, 0)
-    GPIO.OUT(16, 1)
-    GPIO.OUT(18, 0)
-    GPIO.OUT(22, 1)
-    GPIO.OUT(7, 0)
+    for index in Config.motor_pin:
+        GPIO.output(Config.motor_pin[index][0], 1)
+        GPIO.output(Config.motor_pin[index][1], 0)
 
 
 def go_back():
-    GPIO.OUT(11, 0)
-    GPIO.OUT(12, 1)
-    GPIO.OUT(13, 0)
-    GPIO.OUT(15, 1)
-    GPIO.OUT(16, 0)
-    GPIO.OUT(18, 1)
-    GPIO.OUT(22, 0)
-    GPIO.OUT(7, 1)
+    for index in Config.motor_pin:
+        GPIO.output(Config.motor_pin[index][0], 0)
+        GPIO.output(Config.motor_pin[index][1], 1)
 
 
 def turn_left():
-    GPIO.OUT(11, 0)
-    GPIO.OUT(12, 1)
-    GPIO.OUT(13, 1)
-    GPIO.OUT(15, 0)
-    GPIO.OUT(16, 0)
-    GPIO.OUT(18, 1)
-    GPIO.OUT(22, 1)
-    GPIO.OUT(7, 0)
+    GPIO.output(Config.motor_pin['al'][0], 0)
+    GPIO.output(Config.motor_pin['al'][1], 1)
+    GPIO.output(Config.motor_pin['ar'][0], 1)
+    GPIO.output(Config.motor_pin['ar'][1], 0)
+    GPIO.output(Config.motor_pin['bl'][0], 0)
+    GPIO.output(Config.motor_pin['bl'][1], 1)
+    GPIO.output(Config.motor_pin['br'][0], 1)
+    GPIO.output(Config.motor_pin['br'][1], 0)
 
 
 def turn_right():
-    GPIO.OUT(11, 1)
-    GPIO.OUT(12, 0)
-    GPIO.OUT(13, 0)
-    GPIO.OUT(15, 1)
-    GPIO.OUT(16, 1)
-    GPIO.OUT(18, 0)
-    GPIO.OUT(22, 0)
-    GPIO.OUT(7, 1)
+    GPIO.output(Config.motor_pin['al'][0], 1)
+    GPIO.output(Config.motor_pin['al'][1], 0)
+    GPIO.output(Config.motor_pin['ar'][0], 0)
+    GPIO.output(Config.motor_pin['ar'][1], 1)
+    GPIO.output(Config.motor_pin['bl'][0], 1)
+    GPIO.output(Config.motor_pin['bl'][1], 0)
+    GPIO.output(Config.motor_pin['br'][0], 0)
+    GPIO.output(Config.motor_pin['br'][1], 1)
 
 
 def stop():
-    GPIO.OUT(11, 0)
-    GPIO.OUT(12, 0)
-    GPIO.OUT(13, 0)
-    GPIO.OUT(15, 0)
-    GPIO.OUT(16, 0)
-    GPIO.OUT(18, 0)
-    GPIO.OUT(22, 0)
-    GPIO.OUT(7, 0)
+    for index in Config.motor_pin:
+        GPIO.output(Config.motor_pin[index][0], 0)
+        GPIO.output(Config.motor_pin[index][1], 0)
