@@ -4,10 +4,12 @@ from apps.servo.servo import init_servo_angle
 from apps.controlers.joystick import joystick_control
 # from apps.controlers.keyboard import keyboard_control
 from apps.camera.camera import video_stream
+from apps.motor.motor import init_motor
 
 pygame.init()
 pygame.joystick.init()
 init_servo_angle()
+init_motor()
 video_thread = threading.Thread(target=video_stream)
 video_thread.setDaemon(True)
 video_thread.start()

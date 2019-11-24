@@ -1,5 +1,6 @@
 import pygame
 from ..servo.servo import servo_increase, servo_decrease, arm_ahead, arm_back, arm_up, arm_down
+from apps.motor.motor import go_ahead, stop
 
 button = [0] * 14
 hatX = 0
@@ -35,7 +36,7 @@ def joystick_control():
             if hatX is not hat_x_status or hatY is not hat_y_status:
                 hatX = hat_x_status
                 hatY = hat_y_status
-                #print("Hat {} value: ({}, {})".format(index, hatX, hatY))
+                # print("Hat {} value: ({}, {})".format(index, hatX, hatY))
 
 # paw function
     if button[2] == 1:
@@ -62,3 +63,9 @@ def joystick_control():
 
     if button[6] == 1:
         arm_back()
+
+    if hatX == 0 and hatY == 1:
+        go_ahead()
+
+    if hatX == 0 and hatY == 0:
+        stop()
