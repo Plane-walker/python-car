@@ -3,6 +3,7 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 import os
 
+
 def video_stream():
     camera = PiCamera()
     camera.resolution = (320, 240)

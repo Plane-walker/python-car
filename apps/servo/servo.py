@@ -2,7 +2,7 @@ from __future__ import division
 import time
 import math
 import Adafruit_PCA9685
-from ..config.config import Config
+from ..config.config import servo_config
 
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
@@ -40,38 +40,38 @@ def set_servo_angle(channel, angle):
 
 
 def init_servo_angle():
-    for index in range(len(Config.servo_angle)):
-        set_servo_angle(index, Config.servo_angle[index])
+    for index in range(len(servo_config['servo_angle'])):
+        set_servo_angle(index, servo_config['servo_angle'][index])
         time.sleep(1)
 
 
 def servo_increase(index):
-    if Config.servo_angle[index] < 180:
-        Config.servo_angle[index] += 3
+    if servo_config['servo_angle'][index] < 180:
+        servo_config['servo_angle'][index] += 3
     else:
-        Config.servo_angle[index] = 180
-    set_servo_angle(index, Config.servo_angle[index])
+        servo_config['servo_angle'][index] = 180
+    set_servo_angle(index, servo_config['servo_angle'][index])
 
 
 def servo_decrease(index):
-    if Config.servo_angle[index] > 0:
-        Config.servo_angle[index] -= 3
+    if servo_config['servo_angle'][index] > 0:
+        servo_config['servo_angle'][index] -= 3
     else:
-        Config.servo_angle[index] = 0
-    set_servo_angle(index, Config.servo_angle[index])
+        servo_config['servo_angle'][index] = 0
+    set_servo_angle(index, servo_config['servo_angle'][index])
 
 
 def arm_move():
-    inter_x, inter_y = circle_intersection(0, 0, Config.upper_arm_length, axisX, axisY, Config.fore_arm_length)
+    inter_x, inter_y = circle_intersection(0, 0, servo_config['upper_arm_length'], axisX, axisY, servo_config['fore_arm_length'])
     if inter_x == 0 and inter_y == 0:
         return -1
-    Config.servo_angle[3] += Config.angle[0] - cosine_law(inter_x, inter_y, 0, 0, axisX, axisY)
-    Config.angle[0] = cosine_law(inter_x, inter_y, 0, 0, axisX, axisY)
-    Config.servo_angle[4] += cosine_law(0, 0, inter_x, inter_y, 1, 0) - Config.angle[1]
-    Config.angle[1] = cosine_law(0, 0, inter_x, inter_y, 1, 0)
-    if 0 <= Config.servo_angle[3] <= 180 and 0 <= Config.servo_angle[4] <= 180:
-        set_servo_angle(3, Config.servo_angle[3])
-        set_servo_angle(4, Config.servo_angle[4])
+    servo_config['servo_angle'][3] += servo_config['angle'][0] - cosine_law(inter_x, inter_y, 0, 0, axisX, axisY)
+    servo_config['angle'][0] = cosine_law(inter_x, inter_y, 0, 0, axisX, axisY)
+    servo_config['servo_angle'][4] += cosine_law(0, 0, inter_x, inter_y, 1, 0) - servo_config['angle'][1]
+    servo_config['angle'][1] = cosine_law(0, 0, inter_x, inter_y, 1, 0)
+    if 0 <= servo_config['servo_angle'][3] <= 180 and 0 <= servo_config['servo_angle'][4] <= 180:
+        set_servo_angle(3, servo_config['servo_angle'][3])
+        set_servo_angle(4, servo_config['servo_angle'][4])
     else:
         return -1
     return 0
