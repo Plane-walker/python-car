@@ -3,7 +3,7 @@ import cv2
 from apps.config.config import color_dic
 
 
-def video_stream():
+def color_detective():
     capture = cv2.VideoCapture(0)
     if capture.isOpened():
         f, img = capture.read()
