@@ -19,6 +19,26 @@ class Motor:
             GPIO.output(motor_config[index][0], 0)
             GPIO.output(motor_config[index][1], 1)
 
+    def go_left(self):
+        GPIO.output(motor_config['al'][0], 1)
+        GPIO.output(motor_config['al'][1], 0)
+        GPIO.output(motor_config['ar'][0], 0)
+        GPIO.output(motor_config['ar'][1], 1)
+        GPIO.output(motor_config['bl'][0], 0)
+        GPIO.output(motor_config['bl'][1], 1)
+        GPIO.output(motor_config['br'][0], 1)
+        GPIO.output(motor_config['br'][1], 0)
+
+    def go_right(self):
+        GPIO.output(motor_config['al'][0], 0)
+        GPIO.output(motor_config['al'][1], 1)
+        GPIO.output(motor_config['ar'][0], 1)
+        GPIO.output(motor_config['ar'][1], 0)
+        GPIO.output(motor_config['bl'][0], 1)
+        GPIO.output(motor_config['bl'][1], 0)
+        GPIO.output(motor_config['br'][0], 0)
+        GPIO.output(motor_config['br'][1], 1)
+
     def turn_left(self):
         GPIO.output(motor_config['al'][0], 0)
         GPIO.output(motor_config['al'][1], 1)
