@@ -1,4 +1,3 @@
-import RPi.GPIO as GPIO
 import time
 from apps.sensor.trace import Trace
 

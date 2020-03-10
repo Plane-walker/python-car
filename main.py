@@ -1,7 +1,5 @@
 import threading
 from apps.controllers.interface import Controllers
-# from apps.controllers.keyboard import keyboard_control
-# from apps.camera.color import color_detective
 
 
 def main():

@@ -1,4 +1,4 @@
-from .joystick import JoyStick
+from apps.controllers.joystick import JoyStick
 from apps.servo.servo import Servo
 from apps.motor.manual import Manual
 

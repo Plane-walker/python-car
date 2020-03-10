@@ -1,7 +1,7 @@
 from __future__ import division
 import time
 import Adafruit_PCA9685
-from .utils import circle_intersection, cosine_law
+from apps.servo.utils import circle_intersection, cosine_law
 
 
 class Servo:
