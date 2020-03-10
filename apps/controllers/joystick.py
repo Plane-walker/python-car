@@ -13,9 +13,9 @@ class JoyStick:
         self.motor = motor
         self.keyEvent = {
             'button_0': [None, ()],
-            'button_1': [None, ()],
+            'button_1': [motor.turn_right, ()],
             'button_2': [None, ()],
-            'button_3': [None, ()],
+            'button_3': [motor.turn_left, ()],
             'button_4': [servo.servo_increase, (0,)],
             'button_5': [servo.servo_decrease, (1,)],
             'button_6': [servo.servo_decrease, (1,)],
