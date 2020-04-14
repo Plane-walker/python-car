@@ -1,3 +1,0 @@
-Adafruit_PCA9685==1.0.1
-opencv-python==4.2.0.32
-pygame==1.9.6

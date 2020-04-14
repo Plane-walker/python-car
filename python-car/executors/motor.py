@@ -1,13 +1,15 @@
+from scape.action.executor import ActionExecutor
 import RPi.GPIO as GPIO
 
 
-class Manual:
+class Motor(ActionExecutor):
     config = {'al': [7, 11],
               'ar': [12, 13],
               'bl': [15, 16],
               'br': [18, 22]}
-    
+
     def __init__(self):
+        super().__init__()
         GPIO.setmode(GPIO.BOARD)
         for index in self.config:
             GPIO.setup(self.config[index][0], GPIO.OUT)

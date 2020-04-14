@@ -1,10 +1,11 @@
+from scape.signal.sensor import SignalSensor
+from scape.signal.decorators import signal_func
 import cv2
-import os
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 
 
-class Camera:
+class Camera(SignalSensor):
     color_dic = {'black': [[(0, 0, 0), (180, 255, 46)]],
                  'grey': [[(0, 0, 46), (180, 43, 220)]],
                  'white': [[(0, 0, 221), (180, 30, 255)]],
@@ -17,20 +18,13 @@ class Camera:
                  'purple': [[(125, 43, 46), (155, 255, 255)]]}
 
     def __init__(self):
+        super().__init__()
         self.camera = PiCamera()
         self.camera.resolution = (320, 240)
         self.camera.framerate = 60
         self.rawCapture = PiRGBArray(self.camera, size=(320, 240))
 
-    def video_stream(self):
-        for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
-            img = frame.array
-            cv2.imshow("viewer", img)
-            self.rawCapture.truncate(0)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                cv2.destroyAllWindows()
-                break
-
+    @signal_func(())
     def color_detective(self):
         frame = self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True)[0]
         img = frame.array
@@ -59,18 +53,3 @@ class Camera:
             print(max_color, ': ', max_percent)
             return max_color
         return False
-
-    def face_recognize(self):
-        dir_name, file_name = os.path.split(os.path.abspath(__file__))
-        face_xml = cv2.CascadeClassifier(os.path.join(dir_name, "haarcascade_frontalface_alt.xml"))
-        for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
-            img = frame.array
-            gray = cv2.cvtColor(cv2.resize(img, (160, 120)), cv2.COLOR_BGR2GRAY)
-            face = face_xml.detectMultiScale(gray, 1.1, 5)
-            for (x, y, w, h) in face:
-                cv2.rectangle(img, (x * 2, y * 2), (x * 2 + w * 2, y * 2 + h * 2), (255, 0, 0), 2)
-            cv2.imshow("viewer", img)
-            self.rawCapture.truncate(0)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                cv2.destroyAllWindows()
-                break
