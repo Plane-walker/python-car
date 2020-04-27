@@ -9,8 +9,8 @@ class Joystick(SignalSensor):
         pygame.init()
         pygame.joystick.init()
 
-    @signal_func((1, ), (3, ), (4, ), (5, ), (6, ), (7, ), (8, ), (9, ))
-    def press_buttons(self, index):
+    @staticmethod
+    def press_buttons(index):
         if pygame.joystick.get_count() <= 0:
             return
         pygame.event.get()
@@ -19,8 +19,8 @@ class Joystick(SignalSensor):
         joystick.get_name()
         return joystick.get_button(index)
 
-    @signal_func((0, ))
-    def press_hats(self, index):
+    @staticmethod
+    def press_hats(index):
         if pygame.joystick.get_count() <= 0:
             return
         pygame.event.get()
@@ -29,8 +29,8 @@ class Joystick(SignalSensor):
         joystick.get_name()
         return joystick.get_hat(index)
 
-    @signal_func((2, ), (3, ))
-    def press_axes(self, index):
+    @staticmethod
+    def press_axes(index):
         if pygame.joystick.get_count() <= 0:
             return
         pygame.event.get()

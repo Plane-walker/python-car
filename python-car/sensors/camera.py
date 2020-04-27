@@ -24,7 +24,6 @@ class Camera(SignalSensor):
         self.camera.framerate = 60
         self.rawCapture = PiRGBArray(self.camera, size=(320, 240))
 
-    @signal_func(())
     def color_detective(self):
         frame = self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True)[0]
         img = frame.array
