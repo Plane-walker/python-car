@@ -29,17 +29,16 @@ def cosine_law(x1, y1, x2, y2, x3, y3):
 
 
 class Servo(ActionExecutor):
-    pwm = Adafruit_PCA9685.PCA9685()
-    pwm.set_pwm_freq(50)
-    config = {'height': 16.06,
-              'paw_height': 12.61,
-              'fore_arm_length': 14.64,
-              'upper_arm_length': 10.26,
-              'servo_angle': [99, 99, 117, 144, 180],
-              'angle': [65.1, 150.4]}
-
     def __init__(self):
         super().__init__()
+        self.pwm = Adafruit_PCA9685.PCA9685()
+        self.pwm.set_pwm_freq(50)
+        self.config = {'height': 16.06,
+                       'paw_height': 12.61,
+                       'fore_arm_length': 14.64,
+                       'upper_arm_length': 10.26,
+                       'servo_angle': [99, 99, 117, 144, 180],
+                       'angle': [65.1, 150.4]}
         self.axisX = 7.0
         self.axisY = 14.0
         for index in range(len(self.config['servo_angle'])):

@@ -10,7 +10,9 @@ class Automatic(Parser):
         self.flag_r = 0
         self.add_rule(SignalFactory.make('group_trace'), self.adjust)
 
-    def adjust(self, signal, status):
+    def adjust(self):
+        signal = self.received_signal()
+        status = signal.get_status()
         if not status[0]['new']:
             self.flag_l = 1
             self.flag_r = 0

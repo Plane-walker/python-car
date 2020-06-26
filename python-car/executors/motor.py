@@ -3,13 +3,12 @@ import RPi.GPIO as GPIO
 
 
 class Motor(ActionExecutor):
-    config = {'al': [7, 11],
-              'ar': [12, 13],
-              'bl': [15, 16],
-              'br': [18, 22]}
-
     def __init__(self):
         super().__init__()
+        self.config = {'al': [7, 11],
+                       'ar': [12, 13],
+                       'bl': [15, 16],
+                       'br': [18, 22]}
         GPIO.setmode(GPIO.BOARD)
         for index in self.config:
             GPIO.setup(self.config[index][0], GPIO.OUT)

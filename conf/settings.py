@@ -2,8 +2,8 @@ POOL_SIZE = 4
 
 SENSORS = [
     'python-car.sensors.joystick.Joystick',
-    'python-car.sensors.trace.Trace',
-    'python-car.sensors.camera.Camera'
+    'python-car.sensors.trace.Trace'
+    # 'python-car.sensors.camera.Camera'
 ]
 
 PARSERS = [

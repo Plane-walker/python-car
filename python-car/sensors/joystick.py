@@ -1,5 +1,4 @@
 from scape.signal.sensor import SignalSensor
-from scape.signal.decorators import signal_func
 import pygame
 
 
