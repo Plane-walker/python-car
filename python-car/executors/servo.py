@@ -1,4 +1,4 @@
-from scape.action.executor import ActionExecutor
+from scape.core.executor import Executor
 import time
 import Adafruit_PCA9685
 import math
@@ -28,7 +28,7 @@ def cosine_law(x1, y1, x2, y2, x3, y3):
     return round(math.acos((dx1 * dx2 + dy1 * dy2) / math.sqrt((dx1 ** 2 + dy1 ** 2) * (dx2 ** 2 + dy2 ** 2))) * 180 / math.pi, 2)
 
 
-class Servo(ActionExecutor):
+class Servo(Executor):
     def __init__(self):
         super().__init__()
         self.pwm = Adafruit_PCA9685.PCA9685()

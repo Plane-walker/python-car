@@ -1,11 +1,10 @@
-from scape.signal.sensor import SignalSensor
-from scape.signal.decorators import signal_func
+from scape.core.sensor import Sensor
 import cv2
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 
 
-class Camera(SignalSensor):
+class Camera(Sensor):
     color_dic = {'black': [[(0, 0, 0), (180, 255, 46)]],
                  'grey': [[(0, 0, 46), (180, 43, 220)]],
                  'white': [[(0, 0, 221), (180, 30, 255)]],

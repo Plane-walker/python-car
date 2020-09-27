@@ -1,8 +1,8 @@
-from scape.signal.sensor import SignalSensor
+from scape.core.sensor import Sensor
 import pygame
 
 
-class Joystick(SignalSensor):
+class Joystick(Sensor):
     def __init__(self):
         super().__init__()
         pygame.init()
@@ -28,3 +28,11 @@ class Joystick(SignalSensor):
             return
         pygame.event.get()
         return self.joystick.get_axis(index)
+
+
+class RightAxes(Joystick):
+    def __init__(self):
+        super().__init__()
+
+    def push(self):
+        return self.press_axes(2), self.press_axes(3)

@@ -1,6 +1,6 @@
 from scape.core.parser import Parser
-from scape.signal.signal import SignalFactory
-from scape.action.action import ActionFactory
+from scape.event.signal import SignalFactory
+from scape.event.action import ActionFactory
 
 
 class Joystick(Parser):
@@ -9,12 +9,12 @@ class Joystick(Parser):
         self.automatic = False
         self.power = False
         for index in [1, 3, 4, 5, 6, 7]:
-            self.add_rule(SignalFactory.make('Joystick.press_buttons', (index,)), self.buttons_rule)
-        self.add_rule(SignalFactory.make('Joystick.press_buttons', (8,)), self.automatic_button_rule)
-        self.add_rule(SignalFactory.make('Joystick.press_buttons', (9,)), self.power_button_rule)
-        self.add_rule(SignalFactory.make('Joystick.press_hats', (0, )), self.hats_rule)
-        self.add_rule(SignalFactory.make('right_axes'), self.axes_rule)
-        self.process(ActionFactory.make('Activator.init_activate', SignalFactory.make('Joystick.press_buttons', (9,))))
+            self.add_rule(SignalFactory.make('Joystick.press_buttons', index), self.buttons_rule)
+        self.add_rule(SignalFactory.make('Joystick.press_buttons', 8), self.automatic_button_rule)
+        self.add_rule(SignalFactory.make('Joystick.press_buttons', 9), self.power_button_rule)
+        self.add_rule(SignalFactory.make('Joystick.press_hats', 0), self.hats_rule)
+        self.add_rule(SignalFactory.make('RightAxes.push'), self.axes_rule)
+        self.process(ActionFactory.make('Activator.init_activate', SignalFactory.make('Joystick.press_buttons', 9)))
 
     def buttons_rule(self):
         signal = self.received_signal()
@@ -96,8 +96,8 @@ class Joystick(Parser):
     def axes_rule(self):
         signal = self.received_signal()
         status = signal.get_status()
-        x_value = status[0]['new']
-        y_value = status[1]['new']
+        x_value = status['new'][0]
+        y_value = status['new'][1]
         if abs(x_value) < 0.2 and abs(y_value) < 0.2:
             self.process(ActionFactory.make('Motor.stop', ()))
         elif abs(x_value) > abs(y_value):

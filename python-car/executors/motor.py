@@ -1,8 +1,8 @@
-from scape.action.executor import ActionExecutor
+from scape.core.executor import Executor
 import RPi.GPIO as GPIO
 
 
-class Motor(ActionExecutor):
+class Motor(Executor):
     def __init__(self):
         super().__init__()
         self.config = {'al': [7, 11],
