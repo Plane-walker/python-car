@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO
 class Trace(Sensor):
     def __init__(self):
         super().__init__()
-        self.trace_number = [29, 31, 33, 35, 37]
+        self.trace_number = [21, 22, 24, 26, 28]
         GPIO.setmode(GPIO.BOARD)
         for index in self.trace_number:
             GPIO.setup(index, GPIO.IN)

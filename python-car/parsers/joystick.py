@@ -1,6 +1,7 @@
 from scape.core.parser import Parser
 from scape.event.signal import SignalFactory
 from scape.event.action import ActionFactory
+import pygame
 
 
 class Joystick(Parser):
@@ -8,6 +9,13 @@ class Joystick(Parser):
         super().__init__()
         self.automatic = False
         self.power = False
+        pygame.init()
+        pygame.joystick.init()
+        pygame.event.get()
+        if pygame.joystick.get_count() <= 0:
+            self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Group.detective_group')))
+            self.automatic = True
+            return
         for index in [1, 3, 4, 5, 6, 7]:
             self.add_rule(SignalFactory.make('Joystick.press_buttons', index), self.buttons_rule)
         self.add_rule(SignalFactory.make('Joystick.press_buttons', 8), self.automatic_button_rule)
@@ -56,30 +64,30 @@ class Joystick(Parser):
             self.automatic = not self.automatic
 
     def activate_automatic(self):
-        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('group_trace')))
+        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Group.detective_group')))
         for index in [1, 3, 4, 5, 6, 7]:
-            self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('Joystick.press_buttons', (index,))))
-        self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('Joystick.press_hats', (0,))))
-        self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('right_axes')))
+            self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('Joystick.press_buttons', index)))
+        self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('Joystick.press_hats', 0)))
+        self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('RightAxes.push')))
 
     def deactivate_automatic(self):
         self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('group_trace')))
         for index in [1, 3, 4, 5, 6, 7]:
-            self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Joystick.press_buttons', (index,))))
-        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Joystick.press_hats', (0,))))
-        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('right_axes')))
+            self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Joystick.press_buttons', index)))
+        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Joystick.press_hats', 0)))
+        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('RightAxes.push')))
 
     def activate_power(self):
         for index in [1, 3, 4, 5, 6, 7, 8]:
-            self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Joystick.press_buttons', (index,))))
-        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Joystick.press_hats', (0,))))
-        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('right_axes')))
+            self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Joystick.press_buttons', index)))
+        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('Joystick.press_hats', 0)))
+        self.process(ActionFactory.make('Activator.activate', SignalFactory.make('RightAxes.push')))
 
     def deactivate_power(self):
         for index in [1, 3, 4, 5, 6, 7, 8]:
-            self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('Joystick.press_buttons', (index,))))
-        self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('Joystick.press_hats', (0,))))
-        self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('right_axes')))
+            self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('Joystick.press_buttons', index)))
+        self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('Joystick.press_hats', 0)))
+        self.process(ActionFactory.make('Activator.deactivate', SignalFactory.make('RightAxes.push')))
 
     def hats_rule(self):
         signal = self.received_signal()

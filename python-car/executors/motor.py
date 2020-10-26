@@ -5,10 +5,11 @@ import RPi.GPIO as GPIO
 class Motor(Executor):
     def __init__(self):
         super().__init__()
-        self.config = {'al': [7, 11],
-                       'ar': [12, 13],
-                       'bl': [15, 16],
-                       'br': [18, 22]}
+        self.config = {'al': [38, 40, 33],
+                       'ar': [36, 32, 12],
+                       'bl': [13, 15, 33],
+                       'br': [11, 7, 12],
+                       'speed_check': [18, 14, 33, 35]}
         GPIO.setmode(GPIO.BOARD)
         for index in self.config:
             GPIO.setup(self.config[index][0], GPIO.OUT)
